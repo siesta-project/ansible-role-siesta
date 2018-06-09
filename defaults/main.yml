@@ -7,7 +7,9 @@ siesta_code_folder: "${HOME}"
 siesta_url: "https://launchpad.net/siesta/{{ siesta_minor_version }}/{{ siesta_version }}/+download/{{ siesta_src_archive }}"
 siesta_topdir: "{{ siesta_code_folder }}/siesta-{{ siesta_version }}"
 siesta_executables:
-  - siesta
+- name: siesta
+  folder: "{{ siesta_topdir }}/Obj"
+  plugin: siesta.siesta
 
 siesta_tests:
 - h2o
