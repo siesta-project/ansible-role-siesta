@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/marvel-nccr/ansible-role-siesta.svg?branch=master)](https://travis-ci.org/marvel-nccr/ansible-role-siesta)
 # Ansible Role: marvel-nccr.siesta
 
 An Ansible role that installs [Siesta](https://launchpad.net/siesta) on Ubuntu.
