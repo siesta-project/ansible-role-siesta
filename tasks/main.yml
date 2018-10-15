@@ -4,20 +4,18 @@
   become: true
   become_user: "{{ root_user }}"
   apt:
-      name: "{{ item }}"
-      state: latest
-  with_items:
-    - gfortran
-    - openmpi-common
-    - openmpi-bin
-    - libopenmpi-dev 
-    - libblacs-mpi-dev 
-    - libnetcdf-dev 
-    - netcdf-bin 
-    - libnetcdff-dev 
-    - libscalapack-mpi-dev
-    - libblas-dev 
-    - liblapack-dev
+    name: "{{ item }}"
+      - gfortran
+      - openmpi-common
+      - openmpi-bin
+      - libopenmpi-dev 
+      - libblacs-mpi-dev 
+      - libnetcdf-dev 
+      - netcdf-bin 
+      - libnetcdff-dev 
+      - libscalapack-mpi-dev
+      - libblas-dev 
+      - liblapack-dev
 
 - name: Get siesta source
   get_url:
