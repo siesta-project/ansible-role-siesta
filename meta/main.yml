@@ -1,16 +1,16 @@
 ---
-allow_duplicates: no
+allow_duplicates: flase
 
 galaxy_info:
   author: "MARVEL NCCR"
   description: "An Ansible role that installs [Siesta](https://launchpad.net/siesta) on Ubuntu."
   license: MIT
-  min_ansible_version: 2.5
+  min_ansible_version: 2.7
   platforms:
     - name: Ubuntu
       versions:
-      - xenial
-      - bionic
+        - xenial
+        - bionic
   galaxy_tags:
     - ubuntu
     - application

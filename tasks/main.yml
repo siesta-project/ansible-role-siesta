@@ -8,13 +8,13 @@
       - gfortran
       - openmpi-common
       - openmpi-bin
-      - libopenmpi-dev 
-      - libblacs-mpi-dev 
-      - libnetcdf-dev 
-      - netcdf-bin 
-      - libnetcdff-dev 
+      - libopenmpi-dev
+      - libblacs-mpi-dev
+      - libnetcdf-dev
+      - netcdf-bin
+      - libnetcdff-dev
       - libscalapack-mpi-dev
-      - libblas-dev 
+      - libblas-dev
       - liblapack-dev
 
 - name: Get siesta source
@@ -27,7 +27,7 @@
   unarchive:
     src: "{{ siesta_download.dest }}"
     dest: "{{ siesta_code_folder }}"
-    remote_src: True
+    remote_src: true
 
 - name: create Makefile
   shell: ../Src/obj_setup.sh
@@ -69,6 +69,6 @@
     section: "siesta"
     option: "usage"
     value: >-
-      siesta is compiled and installed in {{ siesta_topdir }}. 
+      siesta is compiled and installed in {{ siesta_topdir }}.
       simply run 'siesta'
   when: release_notes is defined and release_notes
