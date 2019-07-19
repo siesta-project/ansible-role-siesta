@@ -2,7 +2,6 @@
 # see https://pelios.csx.cam.ac.uk/~mc321/siesta.html
 - name: Install siesta dependencies
   become: true
-  become_user: "{{ root_user }}"
   apt:
     name:
       - gfortran
@@ -50,10 +49,14 @@
 - import_tasks: tests.yml
   when: siesta_make.changed and run_tests is defined and run_tests
 
-- name: "Put a line in ~/.profile to add siesta to the path"
-  lineinfile:
-    path: "${HOME}/.profile"
-    line: "export PATH=${PATH}:{{ siesta_topdir }}/Obj"
+- name: Install siesta executable
+  become: true
+  copy:
+    src: "{{ siesta_topdir }}/Obj/siesta"
+    dest: "{{ siesta_prefix }}/bin"
+    remote_src: true
+    mode: '0755'
+  register: siesta_install
 
 - include_role:
     name: release_notes
@@ -69,6 +72,6 @@
     section: "siesta"
     option: "usage"
     value: >-
-      siesta is compiled and installed in {{ siesta_topdir }}.
+      siesta is compiled and installed in {{ siesta_prefix }}.
       simply run 'siesta'
   when: release_notes is defined and release_notes
