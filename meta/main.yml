@@ -1,9 +1,9 @@
 ---
-allow_duplicates: flase
+allow_duplicates: false
 
 galaxy_info:
-  author: "MARVEL NCCR"
-  description: "An Ansible role that installs [Siesta](https://launchpad.net/siesta) on Ubuntu."
+  author: "MARVEL NCCR / Siesta project"
+  description: "An Ansible role that installs [Siesta](https://gitlab.com/siesta-project/siesta) on Ubuntu."
   license: MIT
   min_ansible_version: 2.7
   platforms:
