@@ -15,6 +15,7 @@
       - libscalapack-mpi-dev
       - libblas-dev
       - liblapack-dev
+      - unzip
 
 - name: Get siesta source
   get_url:
@@ -151,3 +152,10 @@
     prog: "{{ item }}"
   with_items: "{{ siesta_utils }}"
   tags: siesta_utilites
+
+# Pseudopotentials
+- name: Add pseudopotentials
+  include_tasks: pps.yml
+  vars:
+    pp: "{{ item }}"
+  with_items: "{{ siesta_pps }}"
