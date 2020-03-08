@@ -138,8 +138,7 @@
     option: "usage"
     value: >-
       siesta is compiled and installed in {{ siesta_prefix }}.
-      simply run 'siesta'
-      Some utilites are also installed in {{ siesta_prefix }}:
+      Simply run 'siesta' or any of its utilites:
          mprop
          fat
          gnubands
