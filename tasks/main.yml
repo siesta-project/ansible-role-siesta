@@ -158,3 +158,4 @@
   vars:
     pp: "{{ item }}"
   with_items: "{{ siesta_pps }}"
+  tags: siesta_pps
