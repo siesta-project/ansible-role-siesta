@@ -23,7 +23,7 @@ siesta_lapack_libs: "-llapack -lblas"
 
 siesta_executables:
   - name: siesta
-    folder: "{{ siesta_prefix }}/Obj"
+    folder: "{{ siesta_prefix }}"
     plugin: siesta.siesta
 #
 # After a recent upgrade, this program is not compatible with the STM plugin :-(
