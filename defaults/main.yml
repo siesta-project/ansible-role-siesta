@@ -1,4 +1,3 @@
----
 siesta_version: "v4.1-rc2"
 siesta_minor_version: "v4.1"
 siesta_src: siesta-{{ siesta_version }}
@@ -22,9 +21,9 @@ siesta_scalapack_libs: "-lscalapack-openmpi {{ siesta_blacs_libs }}"
 siesta_lapack_libs: "-llapack -lblas"
 
 siesta_executables:
-  - name: siesta
-    folder: "{{ siesta_prefix }}"
-    plugin: siesta.siesta
+- name: siesta
+  folder: "{{ siesta_prefix }}"
+  plugin: siesta.siesta
 #
 # After a recent upgrade, this program is not compatible with the STM plugin :-(
 # The version shipped with siesta-4.0.X is still appropriate
@@ -34,38 +33,38 @@ siesta_executables:
 
 # Utilities in Util/
 siesta_utils:
-  - name: denchar
-    dir: Util/Denchar/Src
-    description: >-
-     Charge density and wave-function plotting
-  - name: g2c_ng
-    dir: Util/Grid
-    description: >-
-     Converter from native grid to Cube format
-  - name: macroave
-    dir: Util/Macroave/Src
-    description: >-
-     Macroscopic averages processor
-  - name: mprop
-    dir: Util/COOP
-    description: >-
-     COOP/COHP processor
-  - name: fat
-    dir: Util/COOP
-    description: >-
-     Fat-bands processor
-  - name: gnubands
-    dir: Util/Bands
-    description: >-
-     Band-structure plotting
-  - name: eigfat2plot
-    dir: Util/Bands
-    description: >-
-     Fat-bands plotting
-  - name: tbtrans
-    dir: Util/TS/TBtrans
-    description: >-
-     Transport post-processor
+- name: denchar
+  dir: Util/Denchar/Src
+  description: >-
+    Charge density and wave-function plotting
+- name: g2c_ng
+  dir: Util/Grid
+  description: >-
+    Converter from native grid to Cube format
+- name: macroave
+  dir: Util/Macroave/Src
+  description: >-
+    Macroscopic averages processor
+- name: mprop
+  dir: Util/COOP
+  description: >-
+    COOP/COHP processor
+- name: fat
+  dir: Util/COOP
+  description: >-
+    Fat-bands processor
+- name: gnubands
+  dir: Util/Bands
+  description: >-
+    Band-structure plotting
+- name: eigfat2plot
+  dir: Util/Bands
+  description: >-
+    Fat-bands plotting
+- name: tbtrans
+  dir: Util/TS/TBtrans
+  description: >-
+    Transport post-processor
 
 siesta_pps:
   # - name: nc-sr-pbe-stringent-0.4
@@ -86,14 +85,14 @@ siesta_pps:
   #    Norm-conserving scalar-relativistic pseudopotentials v0.4 for the PBE
   #    functional (NC SR ONCVPSP v0.4) from pseudo-dojo.org.
   #    Accuracy "standard", format PSML.
-  - name: nc-sr-pbe-standard-0.4
-    file: nc-sr-04_pbe_standard-psf.tgz
-    url: https://icmab.es/leem/SIESTA_MATERIAL/tmp_PseudoDojo
-    home_page: http://www.pseudo-dojo.org/
-    description: >-
-     Norm-conserving scalar-relativistic pseudopotentials v0.4 for the PBE
-     functional (NC SR ONCVPSP v0.4) from pseudo-dojo.org.
-     Accuracy "standard", format PSF.
+- name: nc-sr-pbe-standard-0.4
+  file: nc-sr-04_pbe_standard-psf.tgz
+  url: https://icmab.es/leem/SIESTA_MATERIAL/tmp_PseudoDojo
+  home_page: http://www.pseudo-dojo.org/
+  description: >-
+    Norm-conserving scalar-relativistic pseudopotentials v0.4 for the PBE
+    functional (NC SR ONCVPSP v0.4) from pseudo-dojo.org.
+    Accuracy "standard", format PSF.
   # - name: nc-fr-pbe-stringent-0.4
   #   folder: nc-fr-pbe-stringent-0.4
   #   file: nc-fr-04_pbe_stringent_psml.tgz
@@ -112,15 +111,15 @@ siesta_pps:
   #    Norm-conserving fully-relativistic pseudopotentials v0.4 for the PBE
   #    functional (NC FR ONCVPSP v0.4) FRom pseudo-dojo.org.
   #    Accuracy "standard", format PSML.
-  - name: nc-fr-pbe-standard-0.4
-    file: nc-fr-04_pbe_standard-psf.tgz
-    url: https://icmab.es/leem/SIESTA_MATERIAL/tmp_PseudoDojo
-    home_page: http://www.pseudo-dojo.org/
-    description: >-
-     Norm-conserving fully-relativistic pseudopotentials v0.4 for the PBE
-     functional (NC FR ONCVPSP v0.4) FRom pseudo-dojo.org.
-     Accuracy "standard", format PSF.
+- name: nc-fr-pbe-standard-0.4
+  file: nc-fr-04_pbe_standard-psf.tgz
+  url: https://icmab.es/leem/SIESTA_MATERIAL/tmp_PseudoDojo
+  home_page: http://www.pseudo-dojo.org/
+  description: >-
+    Norm-conserving fully-relativistic pseudopotentials v0.4 for the PBE
+    functional (NC FR ONCVPSP v0.4) FRom pseudo-dojo.org.
+    Accuracy "standard", format PSF.
 
 siesta_tests:
-  - h2o
-  - mno_ldau
+- h2o
+- mno_ldau

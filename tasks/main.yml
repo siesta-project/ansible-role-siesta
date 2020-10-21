@@ -1,21 +1,20 @@
----
 # see https://pelios.csx.cam.ac.uk/~mc321/siesta.html
 - name: Install siesta dependencies
   become: true
   apt:
     name:
-      - gfortran
-      - openmpi-common
-      - openmpi-bin
-      - libopenmpi-dev
-      - libblacs-mpi-dev
-      - libnetcdf-dev
-      - netcdf-bin
-      - libnetcdff-dev
-      - libscalapack-mpi-dev
-      - libblas-dev
-      - liblapack-dev
-      - unzip
+    - gfortran
+    - openmpi-common
+    - openmpi-bin
+    - libopenmpi-dev
+    - libblacs-mpi-dev
+    - libnetcdf-dev
+    - netcdf-bin
+    - libnetcdff-dev
+    - libscalapack-mpi-dev
+    - libblas-dev
+    - liblapack-dev
+    - unzip
 
 - name: Get siesta source
   get_url:
@@ -123,7 +122,8 @@
     mode: '0755'
   register: eigfat2plot_install
 
-- include_role:
+- name: Add release notes (version)
+  include_role:
     name: release_notes
   vars:
     section: "siesta"
@@ -131,7 +131,8 @@
     value: "{{ siesta_version }}"
   when: release_notes is defined and release_notes
 
-- include_role:
+- name: Add release notes (usage)
+  include_role:
     name: release_notes
   vars:
     section: "siesta"
