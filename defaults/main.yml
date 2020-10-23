@@ -1,11 +1,11 @@
-siesta_version: "v4.1-rc2"
-siesta_minor_version: "v4.1"
+siesta_version: "MaX-1.1-rc1"
+siesta_minor_version: "MaX-1.1-rc1"
 siesta_src: siesta-{{ siesta_version }}
 siesta_src_archive: "{{ siesta_src }}.tar.gz"
 siesta_code_folder: "/tmp"
 siesta_prefix: "/usr/local"
 siesta_data_folder: "{{ siesta_prefix }}/share/siesta"
-siesta_url: "https://gitlab.com/siesta-project/siesta/-/archive/{{ siesta_version }}/{{ siesta_src_archive }}"
+siesta_url: "https://gitlab.com/garalb/siesta/-/archive/{{ siesta_version }}/{{ siesta_src_archive }}"
 siesta_topdir: "{{ siesta_code_folder }}/siesta-{{ siesta_version }}"
 
 xmlf90_version: "1.5.4"
