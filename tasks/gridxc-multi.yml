@@ -1,0 +1,70 @@
+- name: Get source
+  get_url:
+    url: "{{ libgridxc_url }}"
+    dest: "{{ libgridxc_code_folder }}/{{ libgridxc_src_archive }}"
+  register: libgridxc_download
+
+- name: Extract libgridxc source
+  unarchive:
+    src: "{{ libgridxc_download.dest }}"
+    dest: "{{ libgridxc_code_folder }}"
+    remote_src: true
+
+- name: Create config directory
+  file:
+    path: "{{ libgridxc_topdir }}/build_dp"
+    state: directory
+
+- name: Create config directory for mpi
+  file:
+    path: "{{ libgridxc_topdir }}/build_mpi_dp"
+    state: directory
+    
+# --------- dp version
+
+- name: Configure libgridxc dp
+  shell: ../configure --enable-multiconfig --prefix={{ libgridxc_prefix }}
+  args:
+    chdir: "{{ libgridxc_topdir }}/build_dp"
+    creates: "{{ libgridxc_topdir }}/build_dp/Makefile"
+  register: libgridxc_dp_configure
+
+- name: Make libgridxc dp
+  shell: "make"
+  args:
+    chdir: "{{ libgridxc_topdir }}/build_dp"
+    creates: "{{ libgridxc_topdir }}/build_dp/src/libgridxc_dp.la"
+  register: libgridxc_dp_make
+
+- name: Install libgridxc dp
+  shell: make install
+  args:
+    chdir: "{{ libgridxc_topdir }}/build_dp"
+    creates: "{{ libgridxc_prefix }}/lib/libgridxc_dp.a"
+  become: yes
+  register: libgridxc_dp_install
+
+# --------- mpi_dp version
+
+- name: Configure libgridxc mpi_dp
+  shell: MPIFC=mpif90 MPICC=mpicc ../configure --enable-multiconfig --with-mpi --prefix={{ libgridxc_prefix }}
+  args:
+    chdir: "{{ libgridxc_topdir }}/build_mpi_dp"
+    creates: "{{ libgridxc_topdir }}/build_mpi_dp/Makefile"
+  register: libgridxc_mpi_dp_configure
+
+- name: Make libgridxc mpi_dp
+  shell: "make"
+  args:
+    chdir: "{{ libgridxc_topdir }}/build_mpi_dp"
+    creates: "{{ libgridxc_topdir }}/build_mpi_dp/src/libgridxc_dp_mpi.la"
+  register: libgridxc_mpi_dp_make
+
+- name: Install libgridxc mpi_dp
+  shell: make install
+  args:
+    chdir: "{{ libgridxc_topdir }}/build_mpi_dp"
+    creates: "{{ libgridxc_prefix }}/lib/libgridxc_dp_mpi.a"
+  become: yes
+  register: libgridxc_mpi_dp_install
+

@@ -1,0 +1,35 @@
+- name: Get source
+  get_url:
+    url: "{{ libgridxc_url }}"
+    dest: "{{ libgridxc_code_folder }}/{{ libgridxc_src_archive }}"
+  register: libgridxc_download
+
+- name: Extract libgridxc source
+  unarchive:
+    src: "{{ libgridxc_download.dest }}"
+    dest: "{{ libgridxc_code_folder }}"
+    remote_src: true
+
+- name: Configure libgridxc
+  shell: ./configure --prefix={{ libgridxc_prefix }}
+  args:
+    chdir: "{{ libgridxc_topdir }}"
+    creates: "{{ libgridxc_topdir }}/Makefile"
+  register: libgridxc_configure
+
+
+- name: Make libgridxc
+  shell: "make"
+  args:
+    chdir: "{{ libgridxc_topdir }}"
+    creates: "{{ libgridxc_topdir }}/src/libgridxc.la"
+  register: libgridxc_make
+
+- name: Install libgridxc
+  shell: make install
+  args:
+    chdir: "{{ libgridxc_topdir }}"
+    creates: "{{ libgridxc_prefix }}/lib/libgridxc.a"
+  become: yes
+  register: libgridxc_install
+

@@ -21,6 +21,8 @@
 - include: xmlf90.yml
 # Compile and install libpsml
 - include: libpsml.yml
+# Compile and install libgridxc
+- include: gridxc-multi.yml
 
 - name: Get siesta source
   get_url:
