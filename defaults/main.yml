@@ -27,40 +27,53 @@ siesta_executables:
 #
 # After a recent upgrade, this program is not compatible with the STM plugin :-(
 # The version shipped with siesta-4.0.X is still appropriate
-#  - name: plstm
-#    folder: "{{ siesta_prefix }}/Util/STM/simple-stm/plstm"
-#    plugin: siesta.stm
+- name: plstm
+  folder: "{{ siesta_prefix }}/Util/STM/simple-stm/plstm"
+n  plugin: siesta.stm
 
 # Utilities in Util/
 siesta_utils:
+- name: plstm
+  dir: Util/STM/simple-stm
+  description: >-
+    Post-processor for LDOS or RHO data for STM imaging
+  plugin: siesta.stm
+  
 - name: denchar
   dir: Util/Denchar/Src
   description: >-
     Charge density and wave-function plotting
+    
 - name: g2c_ng
   dir: Util/Grid
   description: >-
     Converter from native grid to Cube format
+
 - name: macroave
   dir: Util/Macroave/Src
   description: >-
     Macroscopic averages processor
+
 - name: mprop
   dir: Util/COOP
   description: >-
     COOP/COHP processor
+
 - name: fat
   dir: Util/COOP
   description: >-
     Fat-bands processor
+
 - name: gnubands
   dir: Util/Bands
   description: >-
     Band-structure plotting
+
 - name: eigfat2plot
   dir: Util/Bands
   description: >-
     Fat-bands plotting
+
 - name: tbtrans
   dir: Util/TS/TBtrans
   description: >-
