@@ -15,6 +15,7 @@
     - libblas-dev
     - liblapack-dev
     - unzip
+    - fftw3
 
 - name: Get siesta source
   get_url:
@@ -46,34 +47,6 @@
     creates: "{{ siesta_topdir }}/Obj/siesta"
   register: siesta_make
 
-- name: Make COOP/COHP utility
-  shell: "make mprop"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/COOP"
-    creates: "{{ siesta_topdir }}/Util/COOP/mprop"
-  register: mprop_make
-
-- name: Make fat utility
-  shell: "make fat"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/COOP"
-    creates: "{{ siesta_topdir }}/Util/COOP/fat"
-  register: fat_make
-
-- name: Make gnubands utility
-  shell: "make gnubands"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/Bands"
-    creates: "{{ siesta_topdir }}/Util/Bands/gnubands"
-  register: gnubands_make
-
-- name: Make eigfat2plot utility
-  shell: "make eigfat2plot"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/Bands"
-    creates: "{{ siesta_topdir }}/Util/Bands/eigfat2plot"
-  register: eigfat2plot_make
-
 - import_tasks: tests.yml
   when: siesta_make.changed and run_tests is defined and run_tests
 
@@ -85,42 +58,6 @@
     remote_src: true
     mode: '0755'
   register: siesta_install
-
-- name: Install mprop executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/COOP/mprop"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: mprop_install
-
-- name: Install fat executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/COOP/fat"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: fat_install
-
-- name: Install gnubands executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/Bands/gnubands"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: gnubands_install
-
-- name: Install eigfat2plot executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/Bands/eigfat2plot"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: eigfat2plot_install
 
 - name: Add release notes (version)
   include_role:
