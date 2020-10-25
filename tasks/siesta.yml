@@ -42,6 +42,20 @@
     mode: '0755'
   register: siesta_install
 
+# This is needed to find the shared libs (notably libgridxc)
+
+- name: add dynamic library path config
+  become: true
+  template:
+    src: siesta.conf
+    dest: /etc/ld.so.conf.d/siesta.conf
+  register: ld_conf
+
+- name: apply dynamic library path config
+  become: true
+  command: ldconfig
+  when: ld_conf.changed
+
 - name: Add release notes (version)
   include_role:
     name: release_notes

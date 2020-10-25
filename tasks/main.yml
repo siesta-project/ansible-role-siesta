@@ -19,6 +19,7 @@
 
 # Compile and install flook
 - include: flook.yml
+  when: siesta_enable_flook == '1'
 
 # Compile and install xmlf90
 - include: xmlf90.yml
