@@ -17,6 +17,9 @@
     - unzip
     - libfftw3-dev
 
+# Compile and install flook
+- include: flook.yml
+
 # Compile and install xmlf90
 - include: xmlf90.yml
 # Compile and install libpsml

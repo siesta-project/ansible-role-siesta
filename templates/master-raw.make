@@ -20,8 +20,8 @@ WITH_GRIDXC=1
 
 WITH_EXTERNAL_ELPA=0
 WITH_ELSI=0
-WITH_FLOOK=0
-WITH_MPI=1
+WITH_FLOOK={{ siesta_enable_flook }}
+WITH_MPI={{ siesta_enable_mpi }}
 WITH_NETCDF={{ siesta_enable_netcdf }}
 WITH_NCDF={{ siesta_enable_ncdf }}
 WITH_EXPLICIT_NETCDF_SYMBOLS=1
@@ -39,10 +39,10 @@ WITH_GRID_SP=0
 XMLF90_ROOT={{ siesta_xmlf90_root }}
 PSML_ROOT={{ siesta_psml_root }}
 GRIDXC_ROOT={{ siesta_gridxc_root }}
+FLOOK_ROOT={{ siesta_flook_root }}
 #ELSI_ROOT=
 #ELPA_ROOT=
 #ELPA_INCLUDE_DIRECTORY=
-#FLOOK_ROOT=
 #--------------------------------------------------------
 NETCDF_INCFLAGS={{ siesta_netcdf_incflags }}
 NETCDF_LIBS={{ siesta_netcdf_libs }}

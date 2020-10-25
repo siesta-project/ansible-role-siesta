@@ -1,3 +1,8 @@
+siesta_enable_mpi: "1"
+siesta_enable_netcdf: "1"
+siesta_enable_ncdf: "1"
+siesta_enable_flook: "1"
+#--------------------------
 siesta_version: "MaX-1.1-rc1"
 siesta_minor_version: "MaX-1.1-rc1"
 siesta_src: siesta-{{ siesta_version }}
@@ -35,13 +40,22 @@ libgridxc_prefix: "/usr/local"
 libgridxc_url: "https://gitlab.com/siesta-project/libraries/libgridxc/uploads/e6e4ec1e3ec648a45b3613e724c7be04/libgridxc-0.9.6.tar.gz"
 libgridxc_topdir: "{{ libgridxc_code_folder }}/libgridxc-{{ libgridxc_version }}"
 
-siesta_enable_netcdf: "1"
-siesta_enable_ncdf: "1"
+flook_version: "0.8.1"
+flook_minor_version: "0.8.1"
+flook_src: flook-{{ flook_version }}
+flook_src_archive: "{{ flook_src }}.tar.gz"
+flook_code_folder: "/tmp"
+flook_prefix: "/usr/local"
+flook_url: "https://github.com/ElectronicStructureLibrary/flook/archive/v0.8.1.tar.gz"
+flook_topdir: "{{ flook_code_folder }}/flook-{{ flook_version }}"
+
 siesta_xmlf90_root: "{{ xmlf90_prefix }}"
 siesta_psml_root: "{{ libpsml_prefix }}"
 siesta_gridxc_root: "{{ libgridxc_prefix }}"
 siesta_libxc_root: ""
+siesta_flook_root: "{{ flook_prefix }}"
 siesta_fftw_root: "/usr/lib"
+#----------
 siesta_netcdf_incflags: "-I/usr/include"
 siesta_netcdf_libs: "-lnetcdff -lnetcdf"
 siesta_blacs_libs: "-lblacsF77init-openmpi -lblacsCinit-openmpi -lblacs-openmpi"
