@@ -16,6 +16,7 @@
     - liblapack-dev
     - unzip
     - libfftw3-dev
+    - libxc-dev
 
 # Compile and install flook
 - include: flook.yml
