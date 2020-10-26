@@ -61,6 +61,8 @@ siesta_fftw_root: "/usr/lib"
 #----------
 siesta_netcdf_incflags: "-I/usr/include"
 siesta_netcdf_libs: "-lnetcdff -lnetcdf"
+siesta_fftw_incflags: "-I/usr/include"
+siesta_fftw_libs: "-lfftw3f -lfftw3"
 siesta_blacs_libs: "-lblacsF77init-openmpi -lblacsCinit-openmpi -lblacs-openmpi"
 siesta_scalapack_libs: "-lscalapack-openmpi {{ siesta_blacs_libs }}"
 siesta_lapack_libs: "-llapack -lblas"
@@ -69,26 +71,34 @@ siesta_executables:
 - name: siesta
   folder: "{{ siesta_prefix }}"
   plugin: siesta.siesta
-#
-# After a recent upgrade, this program is not compatible with the STM plugin :-(
-# The version shipped with siesta-4.0.X is still appropriate
+
 - name: plstm
   folder: "{{ siesta_prefix }}/Util/STM/simple-stm/plstm"
-n  plugin: siesta.stm
+  plugin: siesta.stm
 
-# Utilities in Util/
+# Utilities in Util/         -------------------
+
 siesta_utils:
 - name: plstm
   dir: Util/STM/simple-stm
   description: >-
     Post-processor for LDOS or RHO data for STM imaging
-  plugin: siesta.stm
+  
+- name: stm
+  dir: Util/STM/ol-stm/Src
+  description: >-
+    Generator of LDOS data (with opt wf projection) for STM imaging
+  
+- name: unfold
+  dir: Util/Unfolding/Src
+  description: >-
+    Unfolding utility
   
 - name: denchar
   dir: Util/Denchar/Src
   description: >-
     Charge density and wave-function plotting
-    
+
 - name: g2c_ng
   dir: Util/Grid
   description: >-
@@ -119,11 +129,29 @@ siesta_utils:
   description: >-
     Fat-bands plotting
 
+- name: readwfx
+  dir: Util/WFS
+  description: >-
+    Read contents of WFSX files
+
+- name: vibra
+  dir: Util/Vibra/Src
+  description: >-
+    Computes phonon frequencies
+    
+- name: fcbuild
+  dir: Util/Vibra/Src
+  description: >-
+    Pre-processor for force-constant calculation
+    
 - name: tbtrans
   dir: Util/TS/TBtrans
   description: >-
     Transport post-processor
 
+#
+# Pseudopotential packages -------------------------
+#
 siesta_pps:
 
 - name: nc-sr-pbe-stringent-0.4
@@ -166,7 +194,9 @@ siesta_pps:
    functional (NC FR ONCVPSP v0.4) from pseudo-dojo.org.
    Accuracy "standard", format PSML.
 
-
+#
+#  Tests. Just a few
+#
 siesta_tests:
 - h2o
 - mno_ldau

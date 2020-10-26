@@ -1,5 +1,10 @@
+#
+# Question: What happens if there are two executable utilities in the same
+# directory?  Would the "register" clause leave one of them without being made?
+#
+
 - name: Compile "{{ prog.name }}"
-  shell: "make"
+  shell: "make {{prog.name}}"   
   args:
     chdir: "{{ siesta_topdir }}/{{ prog.dir }}"
     creates: "{{ siesta_topdir }}/{{ prog.dir }}/{{ prog.name }}"
