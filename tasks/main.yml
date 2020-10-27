@@ -24,18 +24,16 @@
 
 # Compile and install xmlf90
 - include: xmlf90.yml
+
 # Compile and install libpsml
 - include: libpsml.yml
+
 # Compile and install libgridxc
 - include: gridxc-multi.yml
 
 # Compile and install Siesta and utilities
 - include: siesta.yml
 
-# Pseudopotentials
-- name: Add pseudopotentials
-  include_tasks: pps.yml
-  vars:
-    pp: "{{ item }}"
-  with_items: "{{ siesta_pps }}"
-  tags: siesta_pps
+# Install pseudopotentials
+- include: psml-pps.yml
+  tags: siesta_psml_pps
