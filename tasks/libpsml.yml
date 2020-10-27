@@ -32,4 +32,3 @@
     creates: "{{ libpsml_prefix }}/lib/liblibpsml.a"
   become: yes
   register: libpsml_install
-

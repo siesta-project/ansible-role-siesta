@@ -32,4 +32,3 @@
     creates: "{{ xmlf90_prefix }}/lib/libxmlf90.a"
   become: yes
   register: xmlf90_install
-

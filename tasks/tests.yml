@@ -9,7 +9,7 @@
     creates: "{{ siesta_topdir }}/Obj/Tests/{{ item }}/work"
   with_items: "{{ siesta_tests }}"
   tags: tests
-  
+
 - name: run siesta_lua tests
   shell: "make tests={{ item }} check"
   args:

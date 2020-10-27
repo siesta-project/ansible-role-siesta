@@ -83,17 +83,17 @@ siesta_utils:
   dir: Util/STM/simple-stm
   description: >-
     Post-processor for LDOS or RHO data for STM imaging
-  
+
 - name: stm
   dir: Util/STM/ol-stm/Src
   description: >-
     Generator of LDOS data (with opt wf projection) for STM imaging
-  
+
 - name: unfold
   dir: Util/Unfolding/Src
   description: >-
     Unfolding utility
-  
+
 - name: denchar
   dir: Util/Denchar/Src
   description: >-
@@ -138,12 +138,12 @@ siesta_utils:
   dir: Util/Vibra/Src
   description: >-
     Computes phonon frequencies
-    
+
 - name: fcbuild
   dir: Util/Vibra/Src
   description: >-
     Pre-processor for force-constant calculation
-    
+
 - name: tbtrans
   dir: Util/TS/TBtrans
   description: >-

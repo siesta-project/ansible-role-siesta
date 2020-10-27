@@ -43,5 +43,3 @@
     creates: "{{ flook_prefix }}/include/flook.mod"
   become: yes
   register: flook_install_mod
-  
-

@@ -4,7 +4,7 @@
 #
 
 - name: Compile "{{ prog.name }}"
-  shell: "make {{prog.name}}"   
+  shell: "make {{prog.name}}"
   args:
     chdir: "{{ siesta_topdir }}/{{ prog.dir }}"
     creates: "{{ siesta_topdir }}/{{ prog.dir }}/{{ prog.name }}"

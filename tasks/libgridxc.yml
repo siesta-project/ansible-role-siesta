@@ -32,4 +32,3 @@
     creates: "{{ libgridxc_prefix }}/lib/libgridxc.a"
   become: yes
   register: libgridxc_install
-
