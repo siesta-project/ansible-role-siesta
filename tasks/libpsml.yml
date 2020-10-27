@@ -22,13 +22,13 @@
   shell: "make"
   args:
     chdir: "{{ libpsml_topdir }}"
-    creates: "{{ libpsml_topdir }}/src/liblibpsml.la"
+    creates: "{{ libpsml_topdir }}/src/libpsml.la"
   register: libpsml_make
 
 - name: Install libpsml
   shell: make install
   args:
     chdir: "{{ libpsml_topdir }}"
-    creates: "{{ libpsml_prefix }}/lib/liblibpsml.a"
+    creates: "{{ libpsml_prefix }}/lib/libpsml.a"
   become: yes
   register: libpsml_install

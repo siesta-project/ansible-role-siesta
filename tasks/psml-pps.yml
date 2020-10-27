@@ -18,6 +18,7 @@
     dest: "{{ siesta_data_folder }}"
     remote_src: true
   register: psml_pps_extract
+  when: psml_pps_download.changed
 
 # permissions in original folder may not be readable
 - name: "Fix permissions"
