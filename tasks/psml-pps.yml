@@ -1,0 +1,30 @@
+- name: Get PSML package
+  get_url:
+    url: "{{ psml_pps_url }}"
+    dest: "{{ psml_pps_code_folder }}/{{ psml_pps_src_archive }}"
+  register: psml_pps_download
+
+- name: "Create {{ siesta_data_folder }}"
+  become: true
+  file:
+    path: "{{ siesta_data_folder }}"
+    state: directory
+    mode: "0755"
+
+- name: Extract PSML files
+  become: true
+  unarchive:
+    src: "{{ psml_pps_download.dest }}"
+    dest: "{{ siesta_data_folder }}"
+    remote_src: true
+  register: psml_pps_extract
+
+# permissions in original folder may not be readable
+- name: "Fix permissions"
+  become: true
+  file:
+    path: "{{ siesta_data_folder }}"
+    state: directory
+    mode: "0755"
+    recurse: true
+  when: psml_pps_extract.changed

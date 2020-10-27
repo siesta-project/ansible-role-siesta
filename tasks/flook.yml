@@ -1,0 +1,45 @@
+- name: Install flook dependencies
+  become: true
+  apt:
+    name:
+    - libreadline-dev
+
+- name: Get source for flook
+  get_url:
+    url: "{{ flook_url }}"
+    dest: "{{ flook_code_folder }}/{{ flook_src_archive }}"
+  register: flook_download
+
+- name: Extract flook source
+  unarchive:
+    src: "{{ flook_download.dest }}"
+    dest: "{{ flook_code_folder }}"
+    remote_src: true
+
+- name: copy setup.make
+  template:
+    src: flook_setup.make
+    dest: "{{ flook_topdir }}/setup.make"
+
+- name: Make flook
+  shell: "make liball"
+  args:
+    chdir: "{{ flook_topdir }}"
+    creates: "{{ flook_topdir }}/libflookall.a"
+  register: flook_make
+
+- name: Install flook lib
+  shell: cp -p libflookall.a "{{ flook_prefix }}/lib"
+  args:
+    chdir: "{{ flook_topdir }}"
+    creates: "{{ flook_prefix }}/lib/libflookall.a"
+  become: yes
+  register: flook_install_lib
+
+- name: Install flook module
+  shell: cp -p flook.mod "{{ flook_prefix }}/include"
+  args:
+    chdir: "{{ flook_topdir }}"
+    creates: "{{ flook_prefix }}/include/flook.mod"
+  become: yes
+  register: flook_install_mod
