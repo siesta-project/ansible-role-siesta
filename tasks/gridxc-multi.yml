@@ -1,3 +1,24 @@
+# In ubuntu 16, the libxc-dev package does not have a fortran library
+#
+- name: Install optional libxc dependency
+  become: true
+  apt:
+    name:
+    - libxc-dev
+  when: ansible_facts['distribution_major_version'] | int > 16
+  register: libxc_installed
+
+- name: Set libxc incantation
+  set_fact:
+    libgridxc_libxc_incantation: "--with-libxc='-I/usr/include,-L/usr/lib/x86_64-linux-gnu -lxcf90 -lxc'"
+  when: ansible_facts['distribution_major_version'] | int > 16
+
+- name: Leave libxc incantation empty
+  set_fact:
+    libgridxc_libxc_incantation: ""
+  when: ansible_facts['distribution_major_version'] | int <= 16
+
+
 - name: Get source
   get_url:
     url: "{{ libgridxc_url }}"

@@ -41,7 +41,6 @@ libgridxc_code_folder: "/tmp"
 libgridxc_prefix: "/usr/local"
 libgridxc_url: "https://gitlab.com/siesta-project/libraries/libgridxc/uploads/e6e4ec1e3ec648a45b3613e724c7be04/libgridxc-0.9.6.tar.gz"
 libgridxc_topdir: "{{ libgridxc_code_folder }}/libgridxc-{{ libgridxc_version }}"
-libgridxc_libxc_incantation: "--with-libxc='-I/usr/include,-L/usr/lib/x86_64-linux-gnu -lxcf90 -lxc'"
 
 flook_version: "0.8.1"
 flook_minor_version: "0.8.1"
