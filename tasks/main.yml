@@ -1,13 +1,13 @@
-# see https://pelios.csx.cam.ac.uk/~mc321/siesta.html
+#
 - name: Install siesta dependencies
   become: true
   apt:
     name:
     - gfortran
+    - make
     - openmpi-common
     - openmpi-bin
     - libopenmpi-dev
-    - libblacs-mpi-dev
     - libnetcdf-dev
     - netcdf-bin
     - libnetcdff-dev
@@ -16,7 +16,25 @@
     - liblapack-dev
     - unzip
     - libfftw3-dev
-    - libxc-dev
+
+# Install and configure libblacs-mpi-dev only for 16.04
+- name: Install and configure libblacs-mpi-dev
+  block:
+  - name: Install libblacs-mpi-dev
+    become: true
+    apt:
+      name:
+      - libblacs-mpi-dev
+
+  - name: Set blacs link string
+    set_fact:
+      siesta_blacs_libs: "-lblacsF77init-openmpi -lblacsCinit-openmpi -lblacs-openmpi"
+  when: ansible_facts['distribution_major_version'] | int <= 16
+
+- name: Unset blacs link string
+  set_fact:
+    siesta_blacs_libs: ""
+  when: ansible_facts['distribution_major_version'] | int > 16
 
 # Compile and install flook
 - include: flook.yml
