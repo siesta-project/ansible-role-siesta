@@ -63,7 +63,7 @@ siesta_netcdf_libs: "-lnetcdff -lnetcdf"
 siesta_fftw_incflags: "-I/usr/include"
 siesta_fftw_libs: "-lfftw3f -lfftw3"
 siesta_blacs_libs: "-lblacsF77init-openmpi -lblacsCinit-openmpi -lblacs-openmpi"
-siesta_scalapack_libs: "-lscalapack-openmpi {{ siesta_blacs_libs }}"
+siesta_scalapack_libs: "-lscalapack-openmpi"
 siesta_lapack_libs: "-llapack -lblas"
 
 siesta_executables:

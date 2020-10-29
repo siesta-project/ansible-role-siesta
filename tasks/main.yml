@@ -4,10 +4,10 @@
   apt:
     name:
     - gfortran
+    - make
     - openmpi-common
     - openmpi-bin
     - libopenmpi-dev
-    - libblacs-mpi-dev
     - libnetcdf-dev
     - netcdf-bin
     - libnetcdff-dev
@@ -16,7 +16,6 @@
     - liblapack-dev
     - unzip
     - libfftw3-dev
-    - libxc-dev
 
 # Compile and install flook
 - include: flook.yml
