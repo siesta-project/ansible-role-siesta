@@ -6,20 +6,27 @@
 # Use --oversubscribe in case there is only one core in the virtual machine...
 #
 
+#
+#  Tests. Just a few
+#
+
+- name: Set of tests
+  set_fact:
+    siesta_all_tests: "{{ siesta_tests }}"
+
+- name: Include Lua tests
+  set_fact:
+    siesta_all_tests: "{{ siesta_tests + siesta_lua_tests }}"
+  when: siesta_enable_flook | bool
+
 - name: run siesta tests
   shell: make clean; make MPI='mpirun --oversubscribe -np 2' check
   args:
     chdir: "{{ siesta_topdir }}/Obj/Tests/{{ item }}"
-  with_items: "{{ siesta_tests }}"
+  with_items: "{{ siesta_all_tests }}"
   tags: tests
+  when: siesta_make.changed and run_tests is defined and run_tests
 
-- name: run siesta_lua tests
-  shell: make clean; make MPI='mpirun --oversubscribe -np 2' check
-  args:
-    chdir: "{{ siesta_topdir }}/Obj/Tests/{{ item }}"
-  with_items: "{{ siesta_lua_tests }}"
-  when: siesta_enable_flook | bool
-  tags: tests
 
 # fails (return code != 0), if "Test Failed." is found
 # - name: check siesta test results

@@ -31,7 +31,6 @@
   register: siesta_make
 
 - import_tasks: tests.yml
-  when: siesta_make.changed and run_tests is defined and run_tests
 
 - name: Install siesta executable
   become: true
