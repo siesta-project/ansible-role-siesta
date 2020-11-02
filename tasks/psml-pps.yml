@@ -1,3 +1,7 @@
+#
+# Installation of PSML files (from Pseudo-Dojo)
+# Each family goes into a separate directory, under, e.g. /usr/local/share/siesta/psml-files
+#
 - name: Get PSML package
   get_url:
     url: "{{ psml_pps_url }}"

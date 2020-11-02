@@ -1,3 +1,6 @@
+#
+# Installation of libgridxc (serial and MPI versions, double precision)
+#
 # In ubuntu 16, the libxc-dev package does not have a fortran library
 #
 - name: Install optional libxc dependency
@@ -19,7 +22,7 @@
   when: ansible_facts['distribution_major_version'] | int <= 16
 
 
-- name: Get source
+- name: Get libgridxc source
   get_url:
     url: "{{ libgridxc_url }}"
     dest: "{{ libgridxc_code_folder }}/{{ libgridxc_src_archive }}"

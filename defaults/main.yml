@@ -1,3 +1,6 @@
+#
+# These variables control the optional features.
+#
 siesta_enable_mpi: "1"
 siesta_enable_netcdf: "1"
 siesta_enable_ncdf: "1"
@@ -5,6 +8,13 @@ siesta_enable_flook: "1"
 #
 run_tests: true
 #--------------------------
+#
+# We install the MaX-1.1 version, which is a 'preview' release
+# with important features (PSML, etc), not yet merged into the
+# master version. Note that support for the ELSI library is not compiled in
+# in this deployment for the QuantumMobile, as it is mostly a performance
+# feature.
+#
 siesta_version: "MaX-1.1"
 siesta_minor_version: "MaX-1.1"
 siesta_src: siesta-{{ siesta_version }}
@@ -57,6 +67,7 @@ siesta_gridxc_root: "{{ libgridxc_prefix }}"
 siesta_libxc_root: ""
 siesta_flook_root: "{{ flook_prefix }}"
 siesta_fftw_root: "/usr/lib"
+
 #----------
 siesta_netcdf_incflags: "-I/usr/include"
 siesta_netcdf_libs: "-lnetcdff -lnetcdf"
@@ -65,16 +76,21 @@ siesta_fftw_libs: "-lfftw3f -lfftw3"
 siesta_scalapack_libs: "-lscalapack-openmpi {{ siesta_blacs_libs }}"
 siesta_lapack_libs: "-llapack -lblas"
 
+#
+# This variable will be picked up by the Aiida role
+#
 siesta_executables:
 - name: siesta
-  folder: "{{ siesta_prefix }}"
+  folder: "{{ siesta_prefix }}/bin"
   plugin: siesta.siesta
 
 - name: plstm
-  folder: "{{ siesta_prefix }}/Util/STM/simple-stm/plstm"
+  folder: "{{ siesta_prefix }}/bin"
   plugin: siesta.stm
 
-# Utilities in Util/         -------------------
+#--------------------------------------------------
+
+# Siesta utilities, installed together with the main Siesta executable
 
 siesta_utils:
 - name: plstm

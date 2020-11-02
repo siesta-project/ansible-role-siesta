@@ -1,3 +1,6 @@
+#
+# Installation of xmlf90 library, a prerequisite for libpsml and Siesta itself.
+#
 - name: Get source
   get_url:
     url: "{{ xmlf90_url }}"
@@ -11,7 +14,7 @@
     remote_src: true
 
 - name: Configure xmlf90
-  shell: ./configure --prefix={{ xmlf90_prefix }}
+  command: ./configure --prefix={{ xmlf90_prefix }}
   args:
     chdir: "{{ xmlf90_topdir }}"
     creates: "{{ xmlf90_topdir }}/Makefile"
@@ -19,14 +22,14 @@
 
 
 - name: Make xmlf90
-  shell: "make"
+  command: make
   args:
     chdir: "{{ xmlf90_topdir }}"
     creates: "{{ xmlf90_topdir }}/src/libxmlf90.la"
   register: xmlf90_make
 
 - name: Install xmlf90
-  shell: make install
+  command: make install
   args:
     chdir: "{{ xmlf90_topdir }}"
     creates: "{{ xmlf90_prefix }}/lib/libxmlf90.a"

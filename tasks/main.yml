@@ -1,4 +1,10 @@
 #
+#  This role installs Siesta in Ubuntu distributions
+#
+#      - The Siesta executable, as well as a number of utilities, are installed.
+#      - Requisite domain-specific libraries (libpsml, xmlf90, libgridxc, flook)
+#      - It uses ldconf to add to the shared-library search path
+
 - name: Install siesta dependencies
   become: true
   apt:
@@ -18,8 +24,9 @@
     - libfftw3-dev
 
 # Install and configure libblacs-mpi-dev only for 16.04
-- name: Install and configure libblacs-mpi-dev
+- name: Install and configure libblacs-mpi-dev for older distros
   block:
+
   - name: Install libblacs-mpi-dev
     become: true
     apt:
@@ -29,16 +36,17 @@
   - name: Set blacs link string
     set_fact:
       siesta_blacs_libs: "-lblacsF77init-openmpi -lblacsCinit-openmpi -lblacs-openmpi"
+
   when: ansible_facts['distribution_major_version'] | int <= 16
 
-- name: Unset blacs link string
+- name: Unset blacs link string for modern distros
   set_fact:
     siesta_blacs_libs: ""
   when: ansible_facts['distribution_major_version'] | int > 16
 
 # Compile and install flook
 - include: flook.yml
-  when: siesta_enable_flook == '1'
+  when: siesta_enable_flook | bool
 
 # Compile and install xmlf90
 - include: xmlf90.yml

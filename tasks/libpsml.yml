@@ -11,7 +11,7 @@
     remote_src: true
 
 - name: Configure libpsml
-  shell: ./configure --with-xmlf90={{ xmlf90_prefix }} --prefix={{ libpsml_prefix }}
+  command: ./configure --with-xmlf90={{ xmlf90_prefix }} --prefix={{ libpsml_prefix }}
   args:
     chdir: "{{ libpsml_topdir }}"
     creates: "{{ libpsml_topdir }}/Makefile"
@@ -19,14 +19,14 @@
 
 
 - name: Make libpsml
-  shell: "make"
+  command: make
   args:
     chdir: "{{ libpsml_topdir }}"
     creates: "{{ libpsml_topdir }}/src/libpsml.la"
   register: libpsml_make
 
 - name: Install libpsml
-  shell: make install
+  command: make install
   args:
     chdir: "{{ libpsml_topdir }}"
     creates: "{{ libpsml_prefix }}/lib/libpsml.a"

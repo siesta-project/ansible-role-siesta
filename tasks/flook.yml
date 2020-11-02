@@ -22,14 +22,14 @@
     dest: "{{ flook_topdir }}/setup.make"
 
 - name: Make flook
-  shell: "make liball"
+  command: make liball
   args:
     chdir: "{{ flook_topdir }}"
     creates: "{{ flook_topdir }}/libflookall.a"
   register: flook_make
 
 - name: Install flook lib
-  shell: cp -p libflookall.a "{{ flook_prefix }}/lib"
+  command: cp -p libflookall.a "{{ flook_prefix }}/lib"
   args:
     chdir: "{{ flook_topdir }}"
     creates: "{{ flook_prefix }}/lib/libflookall.a"
@@ -37,7 +37,7 @@
   register: flook_install_lib
 
 - name: Install flook module
-  shell: cp -p flook.mod "{{ flook_prefix }}/include"
+  command: cp -p flook.mod "{{ flook_prefix }}/include"
   args:
     chdir: "{{ flook_topdir }}"
     creates: "{{ flook_prefix }}/include/flook.mod"
