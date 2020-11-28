@@ -30,7 +30,7 @@
   until: not libgridxc_download.failed
   retries: 3
   delay: 10
-  
+
 - name: Extract libgridxc source
   unarchive:
     src: "{{ libgridxc_download.dest }}"
