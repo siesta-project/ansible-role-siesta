@@ -1,34 +1,34 @@
 - name: Get source
   get_url:
-    url: "{{ libpsml_url }}"
-    dest: "{{ libpsml_code_folder }}/{{ libpsml_src_archive }}"
+    url: "{{ siesta_libpsml_url }}"
+    dest: "{{ siesta_libpsml_code_folder }}/{{ siesta_libpsml_src_archive }}"
   register: libpsml_download
-
+  until: not libpsml_download.failed
+  retries: 3
+  delay: 10
+  
 - name: Extract libpsml source
   unarchive:
     src: "{{ libpsml_download.dest }}"
-    dest: "{{ libpsml_code_folder }}"
+    dest: "{{ siesta_libpsml_code_folder }}"
     remote_src: true
 
 - name: Configure libpsml
-  command: ./configure --with-xmlf90={{ xmlf90_prefix }} --prefix={{ libpsml_prefix }}
+  shell: ./configure --with-xmlf90={{ siesta_xmlf90_prefix }} --prefix={{ siesta_libpsml_prefix }}
   args:
-    chdir: "{{ libpsml_topdir }}"
-    creates: "{{ libpsml_topdir }}/Makefile"
-  register: libpsml_configure
+    chdir: "{{ siesta_libpsml_topdir }}"
+    creates: "{{ siesta_libpsml_topdir }}/Makefile"
 
 
 - name: Make libpsml
   command: make
   args:
-    chdir: "{{ libpsml_topdir }}"
-    creates: "{{ libpsml_topdir }}/src/libpsml.la"
-  register: libpsml_make
+    chdir: "{{ siesta_libpsml_topdir }}"
+    creates: "{{ siesta_libpsml_topdir }}/src/libpsml.la"
 
 - name: Install libpsml
   command: make install
   args:
-    chdir: "{{ libpsml_topdir }}"
-    creates: "{{ libpsml_prefix }}/lib/libpsml.a"
+    chdir: "{{ siesta_libpsml_topdir }}"
+    creates: "{{ siesta_libpsml_prefix }}/lib/libpsml.a"
   become: yes
-  register: libpsml_install

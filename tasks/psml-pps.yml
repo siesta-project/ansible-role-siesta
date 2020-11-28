@@ -4,10 +4,13 @@
 #
 - name: Get PSML package
   get_url:
-    url: "{{ psml_pps_url }}"
-    dest: "{{ psml_pps_code_folder }}/{{ psml_pps_src_archive }}"
+    url: "{{ siesta_psml_pps_url }}"
+    dest: "{{ siesta_psml_pps_code_folder }}/{{ siesta_psml_pps_src_archive }}"
   register: psml_pps_download
-
+  until: not psml_pps_download.failed
+  retries: 3
+  delay: 10
+  
 - name: "Create {{ siesta_data_folder }}"
   become: true
   file:

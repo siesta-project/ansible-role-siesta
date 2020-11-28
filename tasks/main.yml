@@ -45,21 +45,21 @@
   when: ansible_facts['distribution_major_version'] | int > 16
 
 # Compile and install flook
-- include: flook.yml
+- include_tasks: flook.yml
   when: siesta_enable_flook | bool
 
 # Compile and install xmlf90
-- include: xmlf90.yml
+- include_tasks: xmlf90.yml
 
 # Compile and install libpsml
-- include: libpsml.yml
+- include_tasks: libpsml.yml
 
 # Compile and install libgridxc
-- include: gridxc-multi.yml
+- include_tasks: gridxc-multi.yml
 
 # Compile and install Siesta and utilities
-- include: siesta.yml
+- include_tasks: siesta.yml
 
 # Install pseudopotentials
-- include: psml-pps.yml
+- include_tasks: psml-pps.yml
   tags: siesta_psml_pps

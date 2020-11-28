@@ -5,7 +5,10 @@
     url: "{{ siesta_url }}"
     dest: "{{ siesta_code_folder }}/{{ siesta_src_archive }}"
   register: siesta_download
-
+  until: not siesta_download.failed
+  retries: 3
+  delay: 10
+  
 - name: Extract siesta source
   unarchive:
     src: "{{ siesta_download.dest }}"
@@ -39,7 +42,6 @@
     dest: "{{ siesta_prefix }}/bin"
     remote_src: true
     mode: '0755'
-  register: siesta_install
 
 # This is needed to find the shared libs (notably libgridxc)
 
@@ -76,7 +78,7 @@
          mprop
          fat
          gnubands
-         eigfat2plot
+         eigfat2plot ...
          ...
   when: release_notes is defined and release_notes
 

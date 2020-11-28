@@ -25,47 +25,47 @@ siesta_data_folder: "{{ siesta_prefix }}/share/siesta"
 siesta_url: "https://gitlab.com/siesta-project/siesta/-/archive/{{ siesta_version }}/{{ siesta_src_archive }}"
 siesta_topdir: "{{ siesta_code_folder }}/siesta-{{ siesta_version }}"
 
-xmlf90_version: "1.5.4"
-xmlf90_minor_version: "1.5.4"
-xmlf90_src: xmlf90-{{ xmlf90_version }}
-xmlf90_src_archive: "{{ xmlf90_src }}.tar.gz"
-xmlf90_code_folder: "/tmp"
-xmlf90_prefix: "/usr/local"
-xmlf90_url: "https://launchpad.net/xmlf90/trunk/1.5/+download/xmlf90-1.5.4.tar.gz"
-xmlf90_topdir: "{{ xmlf90_code_folder }}/xmlf90-{{ xmlf90_version }}"
+siesta_xmlf90_version: "1.5.4"
+siesta_xmlf90_minor_version: "1.5.4"
+siesta_xmlf90_src: xmlf90-{{ siesta_xmlf90_version }}
+siesta_xmlf90_src_archive: "{{ siesta_xmlf90_src }}.tar.gz"
+siesta_xmlf90_code_folder: "/tmp"
+siesta_xmlf90_prefix: "/usr/local"
+siesta_xmlf90_url: "https://launchpad.net/xmlf90/trunk/1.5/+download/xmlf90-1.5.4.tar.gz"
+siesta_xmlf90_topdir: "{{ siesta_xmlf90_code_folder }}/xmlf90-{{ siesta_xmlf90_version }}"
 
-libpsml_version: "1.1.10"
-libpsml_minor_version: "1.1.10"
-libpsml_src: libpsml-{{ libpsml_version }}
-libpsml_src_archive: "{{ libpsml_src }}.tar.gz"
-libpsml_code_folder: "/tmp"
-libpsml_prefix: "/usr/local"
-libpsml_url: "https://gitlab.com/siesta-project/libraries/libpsml/uploads/95c4d83d750d1ca87659b6395c8f7ea7/libpsml-1.1.10.tar.gz"
-libpsml_topdir: "{{ libpsml_code_folder }}/libpsml-{{ libpsml_version }}"
+siesta_libpsml_version: "1.1.10"
+siesta_libpsml_minor_version: "1.1.10"
+siesta_libpsml_src: libpsml-{{ siesta_libpsml_version }}
+siesta_libpsml_src_archive: "{{ siesta_libpsml_src }}.tar.gz"
+siesta_libpsml_code_folder: "/tmp"
+siesta_libpsml_prefix: "/usr/local"
+siesta_libpsml_url: "https://gitlab.com/siesta-project/libraries/libpsml/uploads/95c4d83d750d1ca87659b6395c8f7ea7/libpsml-1.1.10.tar.gz"
+siesta_libpsml_topdir: "{{ siesta_libpsml_code_folder }}/libpsml-{{ siesta_libpsml_version }}"
 
-libgridxc_version: "0.9.6"
-libgridxc_minor_version: "0.9.6"
-libgridxc_src: libgridxc-{{ libgridxc_version }}
-libgridxc_src_archive: "{{ libgridxc_src }}.tar.gz"
-libgridxc_code_folder: "/tmp"
-libgridxc_prefix: "/usr/local"
-libgridxc_url: "https://gitlab.com/siesta-project/libraries/libgridxc/uploads/e6e4ec1e3ec648a45b3613e724c7be04/libgridxc-0.9.6.tar.gz"
-libgridxc_topdir: "{{ libgridxc_code_folder }}/libgridxc-{{ libgridxc_version }}"
+siesta_libgridxc_version: "0.9.6"
+siesta_libgridxc_minor_version: "0.9.6"
+siesta_libgridxc_src: libgridxc-{{ siesta_libgridxc_version }}
+siesta_libgridxc_src_archive: "{{ siesta_libgridxc_src }}.tar.gz"
+siesta_libgridxc_code_folder: "/tmp"
+siesta_libgridxc_prefix: "/usr/local"
+siesta_libgridxc_url: "https://gitlab.com/siesta-project/libraries/libgridxc/uploads/e6e4ec1e3ec648a45b3613e724c7be04/libgridxc-0.9.6.tar.gz"
+siesta_libgridxc_topdir: "{{ siesta_libgridxc_code_folder }}/libgridxc-{{ siesta_libgridxc_version }}"
 
-flook_version: "0.8.1"
-flook_minor_version: "0.8.1"
-flook_src: flook-{{ flook_version }}
-flook_src_archive: "{{ flook_src }}.tar.gz"
-flook_code_folder: "/tmp"
-flook_prefix: "/usr/local"
-flook_url: "https://github.com/ElectronicStructureLibrary/flook/archive/v0.8.1.tar.gz"
-flook_topdir: "{{ flook_code_folder }}/flook-{{ flook_version }}"
+siesta_flook_version: "0.8.1"
+siesta_flook_minor_version: "0.8.1"
+siesta_flook_src: flook-{{ siesta_flook_version }}
+siesta_flook_src_archive: "{{ siesta_flook_src }}.tar.gz"
+siesta_flook_code_folder: "/tmp"
+siesta_flook_prefix: "/usr/local"
+siesta_flook_url: "https://github.com/ElectronicStructureLibrary/flook/archive/v0.8.1.tar.gz"
+siesta_flook_topdir: "{{ siesta_flook_code_folder }}/flook-{{ siesta_flook_version }}"
 
-siesta_xmlf90_root: "{{ xmlf90_prefix }}"
-siesta_psml_root: "{{ libpsml_prefix }}"
-siesta_gridxc_root: "{{ libgridxc_prefix }}"
+siesta_xmlf90_root: "{{ siesta_xmlf90_prefix }}"
+siesta_psml_root: "{{ siesta_libpsml_prefix }}"
+siesta_gridxc_root: "{{ siesta_libgridxc_prefix }}"
 siesta_libxc_root: ""
-siesta_flook_root: "{{ flook_prefix }}"
+siesta_flook_root: "{{ siesta_flook_prefix }}"
 siesta_fftw_root: "/usr/lib"
 
 #----------
@@ -167,12 +167,12 @@ siesta_utils:
 # Pseudopotential packages -------------------------
 #
 
-psml_pps_version: "qm"
-psml_pps_minor_version: "qm"
-psml_pps_src: psml-files-{{ psml_pps_version }}
-psml_pps_src_archive: "{{ psml_pps_src }}.tar.gz"
-psml_pps_code_folder: "/tmp"
-psml_pps_url: "https://gitlab.com/garalb/psml-files/-/archive/{{ psml_pps_version }}/{{ psml_pps_src_archive }}"
+siesta_psml_pps_version: "qm"
+siesta_psml_pps_minor_version: "qm"
+siesta_psml_pps_src: psml-files-{{ siesta_psml_pps_version }}
+siesta_psml_pps_src_archive: "{{ siesta_psml_pps_src }}.tar.gz"
+siesta_psml_pps_code_folder: "/tmp"
+siesta_psml_pps_url: "https://gitlab.com/garalb/psml-files/-/archive/{{ siesta_psml_pps_version }}/{{ siesta_psml_pps_src_archive }}"
 
 #
 #  Tests. Just a few

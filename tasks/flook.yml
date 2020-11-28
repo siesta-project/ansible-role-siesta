@@ -6,40 +6,45 @@
 
 - name: Get source for flook
   get_url:
-    url: "{{ flook_url }}"
-    dest: "{{ flook_code_folder }}/{{ flook_src_archive }}"
+    url: "{{ siesta_flook_url }}"
+    dest: "{{ siesta_flook_code_folder }}/{{ siesta_flook_src_archive }}"
   register: flook_download
+  until: not flook_download.failed
+  retries: 3
+  delay: 10
 
 - name: Extract flook source
   unarchive:
     src: "{{ flook_download.dest }}"
-    dest: "{{ flook_code_folder }}"
+    dest: "{{ siesta_flook_code_folder }}"
     remote_src: true
 
 - name: copy setup.make
   template:
     src: flook_setup.make
-    dest: "{{ flook_topdir }}/setup.make"
+    dest: "{{ siesta_flook_topdir }}/setup.make"
 
 - name: Make flook
   command: make liball
   args:
-    chdir: "{{ flook_topdir }}"
-    creates: "{{ flook_topdir }}/libflookall.a"
+    chdir: "{{ siesta_flook_topdir }}"
+    creates: "{{ siesta_flook_topdir }}/libflookall.a"
   register: flook_make
 
+
 - name: Install flook lib
-  command: cp -p libflookall.a "{{ flook_prefix }}/lib"
-  args:
-    chdir: "{{ flook_topdir }}"
-    creates: "{{ flook_prefix }}/lib/libflookall.a"
-  become: yes
-  register: flook_install_lib
+  become: true
+  copy:
+    src: "{{ siesta_flook_topdir }}/libflookall.a"
+    dest: "{{ siesta_flook_prefix }}/lib"
+    remote_src: true
+    mode: '0755'
 
 - name: Install flook module
-  command: cp -p flook.mod "{{ flook_prefix }}/include"
-  args:
-    chdir: "{{ flook_topdir }}"
-    creates: "{{ flook_prefix }}/include/flook.mod"
-  become: yes
-  register: flook_install_mod
+  become: true
+  copy:
+    src: "{{ siesta_flook_topdir }}/flook.mod"
+    dest: "{{ siesta_flook_prefix }}/include"
+    remote_src: true
+    mode: '0755'
+
