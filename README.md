@@ -4,7 +4,31 @@
 
 # Ansible Role: marvel-nccr.siesta
 
-An Ansible role that installs [Siesta](https://launchpad.net/siesta) on Ubuntu.
+An Ansible role that installs [Siesta](https://gitlab.com/siesta-project/siesta) on Ubuntu.
+
+It installs the MaX-1.1 version, which is a 'preview' release with
+important features (PSML, etc), not yet merged into the master
+version.
+
+PSML support is important to access databases and prepare
+pseudopotentials for all elements, as needed by the aiida-siesta
+package, which supports PSML since the 1.1.0 version. Fuller support
+for protocols, also heavily dependent on the PSML feature, appeared in
+the 1.1.1 version. Older versions of aiida-siesta can also work with
+this version of Siesta, although they will not be able to access all
+the features.
+
+Note that support for the ELSI library (the other major feature of the
+rel-MaX-1 branch) is not compiled in for deployments in the QuantumMobile,
+as it is mostly a performance feature.
+
+With minor changes detailed in the defaults/main.yml file, this role can also
+compile the 4.1-rc2 version of Siesta, in the beta branch.
+
+Future versions along the rel-MaX-1 and rel-4.1 branches could in
+principle be built, as long as they can still use the same libraries,
+and as long as they have a proper tag in the Gitlab repository.
+
 
 ## Installation
 

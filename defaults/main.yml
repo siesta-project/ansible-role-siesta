@@ -9,14 +9,29 @@ siesta_enable_flook: "1"
 run_tests: true
 #--------------------------
 #
-# We install the MaX-1.1 version, which is a 'preview' release
-# with important features (PSML, etc), not yet merged into the
-# master version. Note that support for the ELSI library is not compiled in
+# We install by default the MaX-1.1 version, which is a 'preview' release
+# with important features (PSML pseudopotentials, etc), not yet merged into the
+# master version.
+# PSML support is important to access databases of pseudopotentials for all elements.
+#
+# Note that support for the ELSI library is not compiled in
 # in this deployment for the QuantumMobile, as it is mostly a performance
 # feature.
 #
 siesta_version: "MaX-1.1"
 siesta_minor_version: "MaX-1.1"
+#------------------------------------------------------------------------------------
+#
+# Still, it is possible to install the "rel-4.1" version of Siesta
+# by setting
+#
+#### siesta_version: "4.1-rc2"
+#### siesta_minor_version: "4.1-rc2"
+#
+# **AND** removing "unfold" from the list of 'siesta_utils' futher below
+#------------------------------------------------------------------------------------
+
+
 siesta_src: siesta-{{ siesta_version }}
 siesta_src_archive: "{{ siesta_src }}.tar.gz"
 siesta_code_folder: "/tmp"
