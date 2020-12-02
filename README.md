@@ -6,9 +6,9 @@
 
 An Ansible role that installs [Siesta](https://gitlab.com/siesta-project/siesta) on Ubuntu.
 
-It installs the MaX-1.1 version, which is a 'preview' release with
+It can install any MaX-1.X version. These are 'preview' versions with
 important features (PSML, etc), not yet merged into the master
-version.
+version. 
 
 PSML support is important to access databases and prepare
 pseudopotentials for all elements, as needed by the aiida-siesta
@@ -36,7 +36,15 @@ and as long as they have a proper tag in the Gitlab repository.
 
 ## Role Variables
 
-See `defaults/main.yml`
+See `defaults/main.yml`.
+
+In particular, `siesta_version` can be set to the desired tag. By default,
+it is set to `MaX-1.2.0`.
+
+This role uses the marvel-nccr.libxc role to install versions of libxc
+in those systems where libxc package support is sub-standard. The required
+libxc version can be set through the variable `siesta_libxc_version`, which
+is `4.3.4` by default.
 
 ## Example Playbook
 
@@ -44,6 +52,8 @@ See `defaults/main.yml`
 - hosts: servers
   roles:
   - role: marvel-nccr.siesta
+    vars:
+      siesta_version: "MaX-1.2.0"  # tag in GitLab
 ```
 
 ## Development and testing

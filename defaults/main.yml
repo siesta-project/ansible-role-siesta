@@ -12,8 +12,8 @@ siesta_libxc_version: "4.3.4"
 run_tests: true
 #--------------------------
 #
-# We install by default the MaX-1.1 version, which is a 'preview' release
-# with important features (PSML pseudopotentials, etc), not yet merged into the
+# We install by default the MaX-1.X series of versions. These have
+# important features (PSML pseudopotentials, etc), not yet merged into the
 # master version.
 # PSML support is important to access databases of pseudopotentials for all elements.
 #
@@ -21,7 +21,9 @@ run_tests: true
 # in this deployment for the QuantumMobile, as it is mostly a performance
 # feature.
 #
-siesta_version: "MaX-1.1"
+# Any version in GitLab with a tag of the form MaX.1* can be used here.
+#
+siesta_version: "MaX-1.2.0"
 #------------------------------------------------------------------------------------
 #
 # Still, it is possible to install the "rel-4.1" version of Siesta
