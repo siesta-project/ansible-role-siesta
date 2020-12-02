@@ -5,6 +5,8 @@ siesta_enable_mpi: "1"
 siesta_enable_netcdf: "1"
 siesta_enable_ncdf: "1"
 siesta_enable_flook: "1"
+
+siesta_libxc_version: "4.3.4"
 #
 run_tests: true
 #--------------------------

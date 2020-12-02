@@ -1,0 +1,37 @@
+
+# In ubuntu 16, the libxc-dev package does not have a fortran library
+# In ubuntu 18, the libxc-dev package offers a not very robust 3.0.0
+# So we install 4.3.4 with the new Marvel libxc role
+#
+- name: Install optional libxc dependency with apt get
+  become: true
+  apt:
+    name:
+    - libxc-dev
+  when: ansible_facts['distribution_major_version'] | int > 18
+  register: libxc_installed
+
+- name: Point to the right place
+  set_fact:
+    libgridxc_libxc_incantation: "--with-libxc='-I/usr/include,-L/usr/lib/x86_64-linux-gnu -lxcf90 -elxc'"
+  when: ansible_facts['distribution_major_version'] | int > 18
+
+
+- name: Run libxc role to install libxc
+  include_role:
+    name: marvel-nccr.libxc
+  vars:
+    libxc_version: "{{ siesta_libxc_version }}"
+    libxc_build_cpus: 1
+  when: ansible_facts['distribution_major_version'] | int <= 18
+
+# We have to agree on this!!
+- name: Define variable
+  set_fact:
+    siesta_libxc_root: "/usr/local/libxc-{{ siesta_libxc_version }}"
+  when: ansible_facts['distribution_major_version'] | int <= 18
+
+- name: Point to installed libxc path
+  set_fact:
+    libgridxc_libxc_incantation: "--with-libxc={{ siesta_libxc_root }}"
+  when: ansible_facts['distribution_major_version'] | int <= 18
