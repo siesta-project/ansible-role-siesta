@@ -6,6 +6,7 @@ siesta_enable_netcdf: "1"
 siesta_enable_ncdf: "1"
 siesta_enable_flook: "1"
 
+# The required libxc version. The libxc role has this hardwired now...
 siesta_libxc_version: "4.3.4"
 #
 run_tests: true
@@ -21,14 +22,12 @@ run_tests: true
 # feature.
 #
 siesta_version: "MaX-1.1"
-siesta_minor_version: "MaX-1.1"
 #------------------------------------------------------------------------------------
 #
 # Still, it is possible to install the "rel-4.1" version of Siesta
 # by setting
 #
-#### siesta_version: "4.1-rc2"
-#### siesta_minor_version: "4.1-rc2"
+#### siesta_version: "v4.1-rc2"
 #
 # **AND** removing "unfold" from the list of 'siesta_utils' futher below
 #------------------------------------------------------------------------------------
