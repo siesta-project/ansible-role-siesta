@@ -17,19 +17,26 @@
   when: ansible_facts['distribution_major_version'] | int > 18
 
 
+# We have to agree on this!!
+- name: Define variable
+  set_fact:
+    siesta_libxc_root: "/usr/local/libxc-{{ siesta_libxc_version }}"
+
+- name: Check whether a proper libxc installation already exists
+  stat:
+    path: "{{ siesta_libxc_root }}"
+  register: libxc_installation
+
 - name: Run libxc role to install libxc
   include_role:
     name: marvel-nccr.libxc
   vars:
     libxc_version: "{{ siesta_libxc_version }}"
     libxc_build_cpus: 1
-  when: ansible_facts['distribution_major_version'] | int <= 18
+  when:
+    ansible_facts['distribution_major_version'] | int <= 18 and
+    not libxc_installation.stat.exists
 
-# We have to agree on this!!
-- name: Define variable
-  set_fact:
-    siesta_libxc_root: "/usr/local/libxc-{{ siesta_libxc_version }}"
-  when: ansible_facts['distribution_major_version'] | int <= 18
 
 - name: Point to installed libxc path
   set_fact:
