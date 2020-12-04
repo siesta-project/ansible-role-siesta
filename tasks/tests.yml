@@ -1,12 +1,32 @@
 # running all tests would take of the order of 1h
 # there is currently a bug that results in the test failing
 # https://bugs.launchpad.net/siesta/+bug/1725813
+
+#
+# Use --oversubscribe in case there is only one core in the virtual machine...
+#
+
+#
+#  Tests. Just a few
+#
+
+- name: Set of tests
+  set_fact:
+    siesta_all_tests: "{{ siesta_tests }}"
+
+- name: Include Lua tests
+  set_fact:
+    siesta_all_tests: "{{ siesta_tests + siesta_lua_tests }}"
+  when: siesta_enable_flook | bool
+
 - name: run siesta tests
-  shell: "make tests={{ item }} check"
+  shell: make clean; make MPI='mpirun --oversubscribe -np 2' check
   args:
-    chdir: "{{ siesta_topdir }}/Obj/Tests"
-    creates: "{{ siesta_topdir }}/Obj/Tests/{{ item }}/work"
-  with_items: "{{ siesta_tests }}"
+    chdir: "{{ siesta_topdir }}/Obj/Tests/{{ item }}"
+  with_items: "{{ siesta_all_tests }}"
+  tags: tests
+  when: siesta_make.changed and run_tests is defined and run_tests
+
 
 # fails (return code != 0), if "Test Failed." is found
 # - name: check siesta test results

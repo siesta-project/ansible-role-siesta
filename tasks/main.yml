@@ -1,13 +1,19 @@
-# see https://pelios.csx.cam.ac.uk/~mc321/siesta.html
+#
+#  This role installs Siesta in Ubuntu distributions
+#
+#      - The Siesta executable, as well as a number of utilities, are installed.
+#      - Requisite domain-specific libraries (libpsml, xmlf90, libgridxc, flook)
+#      - It uses ldconf to add to the shared-library search path
+
 - name: Install siesta dependencies
   become: true
   apt:
     name:
     - gfortran
+    - make
     - openmpi-common
     - openmpi-bin
     - libopenmpi-dev
-    - libblacs-mpi-dev
     - libnetcdf-dev
     - netcdf-bin
     - libnetcdff-dev
@@ -15,148 +21,52 @@
     - libblas-dev
     - liblapack-dev
     - unzip
+    - libfftw3-dev
+    - autoconf
 
-- name: Get siesta source
-  get_url:
-    url: "{{ siesta_url }}"
-    dest: "{{ siesta_code_folder }}/{{ siesta_src_archive }}"
-  register: siesta_download
+# Install and configure libblacs-mpi-dev only for 16.04
+- name: Install and configure libblacs-mpi-dev for older distros
+  block:
 
-- name: Extract siesta source
-  unarchive:
-    src: "{{ siesta_download.dest }}"
-    dest: "{{ siesta_code_folder }}"
-    remote_src: true
+  - name: Install libblacs-mpi-dev
+    become: true
+    apt:
+      name:
+      - libblacs-mpi-dev
 
-- name: create Makefile
-  shell: ../Src/obj_setup.sh
-  args:
-    chdir: "{{ siesta_topdir }}/Obj"
-    creates: "{{ siesta_topdir }}/Obj/Makefile"
+  - name: Set blacs link string
+    set_fact:
+      siesta_blacs_libs: "-lblacsF77init-openmpi -lblacsCinit-openmpi -lblacs-openmpi"
 
-- name: copy arch.make
-  template:
-    src: full_options.make
-    dest: "{{ siesta_topdir }}/Obj/arch.make"
+  when: ansible_facts['distribution_major_version'] | int <= 16
 
-- name: Make siesta executables
-  shell: "make"
-  args:
-    chdir: "{{ siesta_topdir }}/Obj"
-    creates: "{{ siesta_topdir }}/Obj/siesta"
-  register: siesta_make
+- name: Unset blacs link string for modern distros
+  set_fact:
+    siesta_blacs_libs: ""
+  when: ansible_facts['distribution_major_version'] | int > 16
 
-- name: Make COOP/COHP utility
-  shell: "make mprop"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/COOP"
-    creates: "{{ siesta_topdir }}/Util/COOP/mprop"
-  register: mprop_make
 
-- name: Make fat utility
-  shell: "make fat"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/COOP"
-    creates: "{{ siesta_topdir }}/Util/COOP/fat"
-  register: fat_make
+# Compile and install libgridxc
+# --- libxc is handled here as a sub-task
 
-- name: Make gnubands utility
-  shell: "make gnubands"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/Bands"
-    creates: "{{ siesta_topdir }}/Util/Bands/gnubands"
-  register: gnubands_make
+- include_tasks: gridxc-multi.yml
 
-- name: Make eigfat2plot utility
-  shell: "make eigfat2plot"
-  args:
-    chdir: "{{ siesta_topdir }}/Util/Bands"
-    creates: "{{ siesta_topdir }}/Util/Bands/eigfat2plot"
-  register: eigfat2plot_make
+# --- If testing libxc handling, you can comment out the rest
+#------------------------------------------------------------
 
-- import_tasks: tests.yml
-  when: siesta_make.changed and run_tests is defined and run_tests
+# Compile and install flook
+- include_tasks: flook.yml
+  when: siesta_enable_flook | bool
 
-- name: Install siesta executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Obj/siesta"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: siesta_install
+# Compile and install xmlf90
+- include_tasks: xmlf90.yml
 
-- name: Install mprop executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/COOP/mprop"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: mprop_install
+# Compile and install libpsml
+- include_tasks: libpsml.yml
 
-- name: Install fat executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/COOP/fat"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: fat_install
+# Compile and install Siesta and utilities
+- include_tasks: siesta.yml
 
-- name: Install gnubands executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/Bands/gnubands"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: gnubands_install
-
-- name: Install eigfat2plot executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Util/Bands/eigfat2plot"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-  register: eigfat2plot_install
-
-- name: Add release notes (version)
-  include_role:
-    name: release_notes
-  vars:
-    section: "siesta"
-    option: "version"
-    value: "{{ siesta_version }}"
-  when: release_notes is defined and release_notes
-
-- name: Add release notes (usage)
-  include_role:
-    name: release_notes
-  vars:
-    section: "siesta"
-    option: "usage"
-    value: >-
-      siesta is compiled and installed in {{ siesta_prefix }}.
-      Simply run 'siesta' or any of its utilites:
-         mprop
-         fat
-         gnubands
-         eigfat2plot
-  when: release_notes is defined and release_notes
-
-# Process utilities
-- include_tasks: siesta-utils.yml
-  vars:
-    prog: "{{ item }}"
-  with_items: "{{ siesta_utils }}"
-  tags: siesta_utilites
-
-# Pseudopotentials
-- name: Add pseudopotentials
-  include_tasks: pps.yml
-  vars:
-    pp: "{{ item }}"
-  with_items: "{{ siesta_pps }}"
-  tags: siesta_pps
+# Install pseudopotentials
+- include_tasks: psml-pps.yml
+  tags: siesta_psml_pps

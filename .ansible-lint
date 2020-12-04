@@ -3,3 +3,4 @@ warn_list:  # or 'skip_list' to silence them completely
   - '208'  # File permissions unset or incorrect
   - '305'  # Use shell only when shell functionality is required
   - '503'  # Tasks that run when changed should likely be handlers
+
