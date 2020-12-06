@@ -32,7 +32,6 @@
       name: marvel-nccr.libxc
     vars:
       libxc_version: "{{ siesta_libxc_version }}"
-      libxc_build_cpus: 1
     when: not libxc_installation.stat.exists
 
   # Here we disable shared libraries because the current libxc role does not build them,

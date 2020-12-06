@@ -47,7 +47,7 @@
     creates: "{{ siesta_libgridxc_topdir }}/build_dp/Makefile"
 
 - name: Make libgridxc dp
-  shell: "make"
+  shell: "make -j{{ siesta_build_cpus }}"
   args:
     chdir: "{{ siesta_libgridxc_topdir }}/build_dp"
     creates: "{{ siesta_libgridxc_topdir }}/build_dp/src/libgridxc_dp.la"
@@ -70,7 +70,7 @@
     creates: "{{ siesta_libgridxc_topdir }}/build_mpi_dp/Makefile"
 
 - name: Make libgridxc mpi_dp
-  shell: "make"
+  shell: "make -j{{ siesta_build_cpus }}"
   args:
     chdir: "{{ siesta_libgridxc_topdir }}/build_mpi_dp"
     creates: "{{ siesta_libgridxc_topdir }}/build_mpi_dp/src/libgridxc_dp_mpi.la"

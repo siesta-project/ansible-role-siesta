@@ -7,6 +7,7 @@ siesta_enable_ncdf: "1"
 siesta_enable_flook: "1"
 
 #
+siesta_build_cpus: 2
 run_tests: true
 #--------------------------
 #

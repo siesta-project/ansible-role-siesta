@@ -32,3 +32,5 @@ provisioner:
         vars:
           ansible_python_interpreter: /usr/bin/python3
           run_tests: true
+          libxc_build_cpus: 2
+          siesta_build_cpus: 2

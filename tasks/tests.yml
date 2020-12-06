@@ -20,7 +20,7 @@
   when: siesta_enable_flook | bool
 
 - name: run siesta tests
-  shell: make clean; make MPI='mpirun --oversubscribe -np 2' check
+  shell: make clean; make MPI='mpirun --oversubscribe -np {{ siesta_build_cpus }}' check
   args:
     chdir: "{{ siesta_topdir }}/Obj/Tests/{{ item }}"
   with_items: "{{ siesta_all_tests }}"

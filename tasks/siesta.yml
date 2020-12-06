@@ -27,7 +27,7 @@
     dest: "{{ siesta_topdir }}/Obj/arch.make"
 
 - name: Make siesta executable
-  command: make
+  command: make -j{{ siesta_build_cpus }}
   args:
     chdir: "{{ siesta_topdir }}/Obj"
     creates: "{{ siesta_topdir }}/Obj/siesta"

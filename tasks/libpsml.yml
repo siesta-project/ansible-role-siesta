@@ -27,7 +27,7 @@
 
 
 - name: Make libpsml
-  command: make
+  command: make -j{{ siesta_build_cpus }}
   args:
     chdir: "{{ siesta_libpsml_topdir }}"
     creates: "{{ siesta_libpsml_topdir }}/src/libpsml.la"
