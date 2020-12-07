@@ -36,3 +36,12 @@
     mode: "0755"
     recurse: true
   when: psml_pps_extract.changed
+
+- name: Add release notes (pmsl)
+  include_role:
+    name: release_notes
+  vars:
+    section: "siesta"
+    option: "pps"
+    value: "PSML pseudopotentials have been downloaded to: {{ siesta_data_folder }}"
+  when: release_notes is defined and release_notes

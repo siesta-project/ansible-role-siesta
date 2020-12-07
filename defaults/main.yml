@@ -195,11 +195,16 @@ siesta_psml_pps_src_archive: "{{ siesta_psml_pps_src }}.tar.gz"
 siesta_psml_pps_code_folder: "/tmp"
 siesta_psml_pps_url: "https://gitlab.com/garalb/psml-files/-/archive/{{ siesta_psml_pps_version }}/{{ siesta_psml_pps_src_archive }}"
 
-#
-#  Tests. Just a few
-#
+# there is currently a bug that results in tests failing due to insignificant diffs
+# https://bugs.launchpad.net/siesta/+bug/1725813
+# therefore by default we only test that the runs complete, and do not check them against the expected output
+siesta_test_type: completed  # check
+
+# Note: running all tests would take of the order of 1h
+
 siesta_tests:
 - h2o
+- h2o-psml
 - mno_ldau
 
 siesta_lua_tests:

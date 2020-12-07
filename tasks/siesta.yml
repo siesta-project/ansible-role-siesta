@@ -33,16 +33,6 @@
     creates: "{{ siesta_topdir }}/Obj/siesta"
   register: siesta_make
 
-- import_tasks: tests.yml
-
-- name: Install siesta executable
-  become: true
-  copy:
-    src: "{{ siesta_topdir }}/Obj/siesta"
-    dest: "{{ siesta_prefix }}/bin"
-    remote_src: true
-    mode: '0755'
-
 # This is needed to find the shared libs (notably libgridxc)
 
 - name: add dynamic library path config
@@ -56,6 +46,17 @@
   become: true
   command: ldconfig
   when: ld_conf.changed
+
+- import_tasks: siesta-tests.yml
+  when: run_tests is defined and run_tests
+
+- name: Install siesta executable
+  become: true
+  copy:
+    src: "{{ siesta_topdir }}/Obj/siesta"
+    dest: "{{ siesta_prefix }}/bin"
+    remote_src: true
+    mode: '0755'
 
 - name: Add release notes (version)
   include_role:
