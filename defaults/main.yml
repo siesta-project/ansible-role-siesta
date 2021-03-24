@@ -105,10 +105,12 @@ siesta_executables:
 - name: siesta
   folder: "{{ siesta_prefix }}/bin"
   plugin: siesta.siesta
+  version: "{{ siesta_version }}"
 
 - name: plstm
   folder: "{{ siesta_prefix }}/bin"
   plugin: siesta.stm
+  version: "{{ siesta_version }}"
 
 #--------------------------------------------------
 
