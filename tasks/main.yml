@@ -72,6 +72,9 @@
 # Compile and install visualization tools by A. Postnikov
 - include_tasks: visual.yml
 
+# Compile and install lattice-dynamics tools by A. Postnikov
+- include_tasks: lattice.yml
+
 # Install pseudopotentials
 - include_tasks: psml-pps.yml
   tags: siesta_psml_pps

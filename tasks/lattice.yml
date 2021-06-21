@@ -1,0 +1,42 @@
+- name: Get source for lattice-dynamics tools
+  get_url:
+    url: "{{ siesta_lattice_tools_url }}"
+    dest: "{{ siesta_lattice_tools_code_folder }}/{{ siesta_lattice_tools_src_archive }}"
+  register: lattice_tools_download
+  until: not lattice_tools_download.failed
+  retries: 3
+  delay: 10
+
+- name: Extract lattice_tools source
+  unarchive:
+    src: "{{ lattice_tools_download.dest }}"
+    dest: "{{ siesta_lattice_tools_code_folder }}"
+    remote_src: true
+
+- name: Make lattice_tools tools
+  command: make
+  args:
+    chdir: "{{ siesta_lattice_tools_topdir }}/src"
+    creates: "{{ siesta_lattice_tools_topdir }}/phdos"
+  register: lattice_tools_make
+
+
+- name: Install lattice_tools tools
+  become: true
+  copy:
+    src: "{{ siesta_lattice_tools_topdir }}/src/{{ item }}"
+    dest: "{{ siesta_lattice_tools_prefix }}/bin"
+    remote_src: true
+    mode: '0755'
+  with_items:
+  - bonds
+  - fcexp
+  - fcfit
+  - fcmat
+  - fcxsf
+  - phbds
+  - phdos
+  - scell
+  - velcf
+  - vibq0
+  - zrofc

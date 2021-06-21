@@ -100,6 +100,15 @@ siesta_visualization_url: "https://gitlab.com/siesta-project/analysis-tools/visu
 siesta_visualization_topdir: "{{ siesta_visualization_code_folder }}/visualization-{{ siesta_visualization_version }}"
 
 #----------
+siesta_lattice_tools_version: "0.5.0"
+siesta_lattice_tools_src: lattice-dynamics-{{ siesta_lattice_tools_version }}
+siesta_lattice_tools_src_archive: "{{ siesta_lattice_tools_src }}.tar.gz"
+siesta_lattice_tools_code_folder: "/tmp"
+siesta_lattice_tools_prefix: "/usr/local"
+siesta_lattice_tools_url: "https://gitlab.com/siesta-project/analysis-tools/lattice-dynamics/-/archive/{{ siesta_lattice_tools_version }}/{{ siesta_lattice_tools_src_archive }}"
+siesta_lattice_tools_topdir: "{{ siesta_lattice_tools_code_folder }}/lattice-dynamics-{{ siesta_lattice_tools_version }}"
+
+#----------
 siesta_netcdf_incflags: "-I/usr/include"
 siesta_netcdf_libs: "-lnetcdff -lnetcdf"
 siesta_fftw_incflags: "-I/usr/include"
