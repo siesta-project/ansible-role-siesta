@@ -33,13 +33,13 @@ siesta_version: "MaX-1.2.0"
 # **AND** removing "unfold" from the list of 'siesta_utils' futher below
 #------------------------------------------------------------------------------------
 
-
+siesta_repo: "gitlab.com/siesta-project/siesta"
 siesta_src: siesta-{{ siesta_version }}
 siesta_src_archive: "{{ siesta_src }}.tar.gz"
 siesta_code_folder: "/tmp"
 siesta_prefix: "/usr/local"
 siesta_data_folder: "{{ siesta_prefix }}/share/siesta"
-siesta_url: "https://gitlab.com/siesta-project/siesta/-/archive/{{ siesta_version }}/{{ siesta_src_archive }}"
+siesta_url: "https://{{ siesta_repo }}/-/archive/{{ siesta_version }}/{{ siesta_src_archive }}"
 siesta_topdir: "{{ siesta_code_folder }}/siesta-{{ siesta_version }}"
 
 siesta_xmlf90_version: "1.5.5"
@@ -146,10 +146,15 @@ siesta_utils:
   description: >-
     Charge density and wave-function plotting
 
-- name: g2c_ng
+- name: grid2cube
   dir: Util/Grid
   description: >-
     Converter from native grid to Cube format
+
+- name: g2c_ng
+  dir: Util/Grid
+  description: >-
+    Converter from native grid to Cube format (experimental)
 
 - name: macroave
   dir: Util/Macroave/Src
@@ -165,6 +170,21 @@ siesta_utils:
   dir: Util/COOP
   description: >-
     Fat-bands processor
+
+- name: spin_texture
+  dir: Util/COOP
+  description: >-
+    Spin-texture processor (experimental)
+
+- name: optical_input
+  dir: Util/Optical
+  description: >-
+    Pre-processor for optical properties
+
+- name: optical
+  dir: Util/Optical
+  description: >-
+    Optical properties calculator
 
 - name: gnubands
   dir: Util/Bands
@@ -196,6 +216,10 @@ siesta_utils:
   description: >-
     Transport post-processor
 
+- name: ioncat
+  dir: Util/Gen-basis
+  description: >-
+    Data extractor for .ion files
 #
 # Pseudopotential packages -------------------------
 #
